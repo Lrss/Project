@@ -51,7 +51,7 @@ namespace UnityStandardAssets.Utility
             //Debug.Log(body.angularVelocity);
             if (body.angularVelocity < 1 && body.angularVelocity > -1)
             {
-                Debug.Log(currentCooldown);
+                //Debug.Log(currentCooldown);
                 if (cooling && isTurning)
                 {
                     if (currentCooldown < 1)
