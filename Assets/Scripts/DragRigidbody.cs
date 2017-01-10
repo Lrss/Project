@@ -4,6 +4,7 @@ namespace UnityStandardAssets.Utility
 {
     public class DragRigidbody : MonoBehaviour
     {
+        public static bool isTurning;
         float multiplier = 1;
         float deltaReduce = 1;
 
@@ -17,6 +18,10 @@ namespace UnityStandardAssets.Utility
         {
             body = GetComponent<Rigidbody2D>();
         }
+
+        private int cooldown = 100;
+        private int currentCooldown = 100;
+        private bool cooling;
 
         void Update()
         {
@@ -33,7 +38,6 @@ namespace UnityStandardAssets.Utility
 
             if (Input.GetMouseButton(0))
             {
-
                 deltaRotation = Mathf.DeltaAngle(prevAngle, newAngle);
                 body.AddTorque(deltaRotation * 9999 * multiplier);
             }
@@ -41,6 +45,36 @@ namespace UnityStandardAssets.Utility
             {
                 deltaRotation = Mathf.LerpAngle(0, deltaRotation, deltaReduce *Time.deltaTime);
                 body.AddTorque(deltaRotation);
+            }
+
+            
+            //Debug.Log(body.angularVelocity);
+            if (body.angularVelocity < 1 && body.angularVelocity > -1)
+            {
+                Debug.Log(currentCooldown);
+                if (cooling && isTurning)
+                {
+                    if (currentCooldown < 1)
+                    {
+                        isTurning = false;
+                        cooling = false;
+                    }
+                    else
+                    {
+                        currentCooldown--;
+                    }
+                    
+                }
+                else
+                {
+                    currentCooldown = cooldown;
+                    cooling = true;
+                }
+            }
+            else
+            {
+                currentCooldown = cooldown;
+                isTurning = true;
             }
         }
 
