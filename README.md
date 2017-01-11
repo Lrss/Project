@@ -1,4 +1,4 @@
-# ProjectPlayground
+# ProjectPlayground - Spiloppen
 A little game project made for Ninna Madsen and her group for their project exam.
 
 # License
